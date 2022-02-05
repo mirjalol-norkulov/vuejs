@@ -1,57 +1,21 @@
 <template>
   <div id="app">
-    <div class="main">
-      <h1>{{ count }}</h1>
-      <button @click="count++">+</button>
-      <button @click="count--">-</button>
-      <TicTacToe />
-    </div>
+    <QuizzApp />
   </div>
 </template>
 
 <script>
-import TicTacToe from "./components/TicTacToe";
+import QuizzApp from "./components/QuizzApp.vue";
 
 export default {
   name: "App",
-  components: { TicTacToe },
+  components: { QuizzApp },
   data() {
-    return {
-      count1: 1,
-      user: {
-        id: 1,
-        name: 'Ali'
-      }
-    }
+    return {};
   },
-  computed: {
-    count: {
-      get() {
-        return this.count1;
-      },
-      set(value) {
-        if (value < 0) {
-          return;
-        }
-        localStorage.setItem("count", value);
-        this.count1 = value;
-      }
-    }
-  },
-  watch: {
-    count: (newValue, oldValue) => {
-      console.log(`count1 ${oldValue} dan ${newValue} ga o'zgardi.`);
-    },
-    user: {
-      immediate: true,
-      deep: true,
-      handler(newValue) {
-        console.log('user: ', newValue);
-      }
-    }
-  }
+  computed: {},
+  watch: {},
 };
-
 </script>
 
 <style lang="scss">
@@ -61,10 +25,6 @@ export default {
 
 body {
   font-family: "Helvetica", sans-serif;
-}
-
-.main {
-  width: 50%;
-  margin: 0 auto;
+  margin: 0;
 }
 </style>
