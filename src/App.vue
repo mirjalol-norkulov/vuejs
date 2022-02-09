@@ -1,17 +1,22 @@
 <template>
   <div id="app">
-    <QuizzApp />
+    <FormItem label="Show clock" name="showClock" v-model="showClock" type="checkbox" />
+    
+    <DigitalClock v-if="showClock" class="clock" id="clock" @blur="() => { }" />
   </div>
 </template>
 
 <script>
-import QuizzApp from "./components/QuizzApp.vue";
+import DigitalClock from "./components/DigitalClock.vue";
+import FormItem from "./components/FormItem.vue";
 
 export default {
   name: "App",
-  components: { QuizzApp },
+  components: { DigitalClock, FormItem },
   data() {
-    return {};
+    return {
+      showClock: true
+    };
   },
   computed: {},
   watch: {},
@@ -26,5 +31,8 @@ export default {
 body {
   font-family: "Helvetica", sans-serif;
   margin: 0;
+}
+
+.clock {
 }
 </style>
