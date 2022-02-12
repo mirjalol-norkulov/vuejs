@@ -1,38 +1,65 @@
 <template>
   <div id="app">
-    <FormItem label="Show clock" name="showClock" v-model="showClock" type="checkbox" />
-    
-    <DigitalClock v-if="showClock" class="clock" id="clock" @blur="() => { }" />
+    <!-- <TodoTable /> -->
+    <BaseMenu :items="menuItems" />
   </div>
 </template>
 
 <script>
-import DigitalClock from "./components/DigitalClock.vue";
-import FormItem from "./components/FormItem.vue";
+// import TodoTable from "./components/TodoTable.vue";
+import BaseMenu from "./components/BaseMenu.vue";
 
 export default {
   name: "App",
-  components: { DigitalClock, FormItem },
+  components: { BaseMenu },
   data() {
     return {
-      showClock: true
+      showClock: true,
+      menuItems: [
+        {
+          title: "Development",
+          key: "development",
+          children: [
+            {
+              title: "Web development",
+              link: "https://google.com",
+              key: "web-development",
+              children: [
+                {
+                  title: "Javascript",
+                },
+                {
+                  title: "VueJS",
+                },
+              ],
+            },
+            {
+              title: "Data science",
+              link: "https://google.com",
+              key: "data-science",
+            },
+          ],
+        },
+        {
+          title: "Business",
+          key: "business",
+          children: [
+            {
+              title: "Communication",
+              link: "https://google.com",
+              key: "communication",
+            },
+            {
+              title: "Management",
+              link: "https://google.com",
+              key: "management",
+            },
+          ],
+        },
+      ],
     };
   },
   computed: {},
   watch: {},
 };
 </script>
-
-<style lang="scss">
-* {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: "Helvetica", sans-serif;
-  margin: 0;
-}
-
-.clock {
-}
-</style>
