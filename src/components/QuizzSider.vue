@@ -9,26 +9,62 @@
           <ChevronRightFilled />
         </Icon>
       </button>
+      <QuizzSiderClock v-show="value" :minutes="20" @finish="$emit('finish')" />
     </header>
+
+    <main v-show="value" class="quizz-sider__main">
+      <section class="quizz-sider__top">
+        <span class="quizz-sider__subject">Matematika</span>
+        <div>
+          {{ selectedCount }} /
+          {{ quizzes.length }}
+        </div>
+      </section>
+
+      <section class="quizz-sider__buttons">
+        <button
+          v-for="(quizz, index) in quizzes"
+          :key="quizz.id"
+          class="quizz-sider__button"
+          :class="{ 'quizz-sider__button--active': !!quizz.userAnswer }"
+          @click="handleButtonClick(quizz)"
+        >
+          {{ index + 1 }}
+        </button>
+      </section>
+    </main>
   </aside>
 </template>
 
 <script>
 import { Icon } from "@v2icons/utils";
 import { ChevronLeftFilled, ChevronRightFilled } from "@v2icons/material";
+import QuizzSiderClock from "./QuizzSiderClock.vue";
 
 export default {
   name: "QuizzSider",
-  components: { Icon, ChevronLeftFilled, ChevronRightFilled },
+  components: { Icon, ChevronLeftFilled, ChevronRightFilled, QuizzSiderClock },
   props: {
     value: {
       type: Boolean,
       default: false,
     },
+    quizzes: {
+      type: Array,
+      required: true,
+    },
+  },
+  computed: {
+    selectedCount() {
+      return this.quizzes.filter((quizz) => !!quizz.userAnswer).length;
+    },
   },
   methods: {
     toggleSider() {
       this.$emit("input", !this.value);
+    },
+    handleButtonClick(quizz) {
+      this.$emit("quizz-click", quizz);
     },
   },
 };
@@ -65,5 +101,48 @@ export default {
       width: 65px;
     }
   }
+
+  &__main {
+    padding: 1rem;
+  }
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 2px dotted rgba(87, 87, 87, 0.12);
+    margin-bottom: 0.5rem;
+  }
+
+  &__subject {
+    font-weight: bold;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__button {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: solid 1px black;
+    background: transparent;
+
+    &:hover,
+    &--active {
+      background: black;
+      color: #fff;
+    }
+
+    &:not(:first-child) {
+      margin-left: 5px;
+    }
+  }
+}
+
+.quizz-sider-clock {
+  flex: 1;
 }
 </style>

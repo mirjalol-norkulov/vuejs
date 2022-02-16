@@ -51,7 +51,10 @@ export default {
   },
   methods: {
     inputChange(event) {
-      this.$emit("user-answer-change", { id: this.quizz.id, answer: event.target.value });
+      this.$emit("user-answer-change", {
+        id: this.quizz.id,
+        answer: event.target.value,
+      });
     },
   },
 };
